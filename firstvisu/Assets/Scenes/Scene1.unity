@@ -377,7 +377,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1185.9, y: 113.5}
+  m_SizeDelta: {x: 1024.2, y: 113.5}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &19667820
 MonoBehaviour:
@@ -1750,7 +1750,7 @@ GameObject:
   - component: {fileID: 121382892}
   - component: {fileID: 121382891}
   m_Layer: 5
-  m_Name: RestartCamPos
+  m_Name: ObliqueCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1772,8 +1772,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 52, y: -52.99997}
-  m_SizeDelta: {x: 185.5, y: 30}
+  m_AnchoredPosition: {x: -54, y: -52.99997}
+  m_SizeDelta: {x: 141, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &121382891
 MonoBehaviour:
@@ -2360,7 +2360,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: ChangeScene
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2428,7 +2428,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 152975349}
-    characterCount: 11
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -4142,7 +4142,7 @@ GameObject:
   - component: {fileID: 335148596}
   - component: {fileID: 335148595}
   m_Layer: 5
-  m_Name: ChangeScene
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4164,8 +4164,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -230, y: -53}
-  m_SizeDelta: {x: 185.5, y: 30}
+  m_AnchoredPosition: {x: -265, y: -53}
+  m_SizeDelta: {x: 141, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &335148595
 MonoBehaviour:
@@ -14967,6 +14967,7 @@ MonoBehaviour:
   textVideo: 
   agents: []
   all_agents: []
+  agents_in_scene_list: []
   agents_in_scene: []
   agents_names: []
   agent_prefab: {fileID: 1482076880153734, guid: 1a504fcb3657e8f468c83ca67d84fcb0,
@@ -16833,7 +16834,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: RestartCamPos
+  m_text: ObliqueCam
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -16901,7 +16902,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1431258872}
-    characterCount: 13
+    characterCount: 10
     spriteCount: 0
     spaceCount: 0
     wordCount: 1

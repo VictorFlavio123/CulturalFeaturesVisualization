@@ -356,7 +356,7 @@ public class GameController : MonoBehaviour
                                     //Debug.Log("Agent ------- " + current_agent.name  + " Anger value ----- " + emotions_anger_videos.ElementAt(count_frame));
                                 }
 
-                                if (agents_in_scene.Contains(agents_id_videos.ElementAt(j)) && activated_agents_videos.ElementAt(j).Equals("yes") && agents_names.Contains(agentname))
+                                else if (agents_in_scene.Contains(agents_id_videos.ElementAt(j)) && activated_agents_videos.ElementAt(j).Equals("yes") && agents_names.Contains(agentname))
                                 {
                                     position = new Vector3(float.Parse(pos_x_videos.ElementAt(j)) / float.Parse(px_to_m_factors_videos.ElementAt(0)), 0, max_y - float.Parse(pos_y_videos.ElementAt(j)) / float.Parse(px_to_m_factors_videos.ElementAt(0)));
                                     newAgent = GameObject.Find(agentname);
@@ -364,7 +364,7 @@ public class GameController : MonoBehaviour
                                     newAgent.transform.position = position;
                                 }
 
-                                if (agents_in_scene.Contains(agents_id_videos.ElementAt(j)) && !activated_agents_videos.ElementAt(j).Equals("yes") && agents_names.Contains(agentname))
+                                else if (agents_in_scene.Contains(agents_id_videos.ElementAt(j)) && !activated_agents_videos.ElementAt(j).Equals("yes") && agents_names.Contains(agentname))
                                 {
                                     agents_in_scene.Remove(agents_id_videos.ElementAt(j));
                                     newAgent = GameObject.Find(agentname);

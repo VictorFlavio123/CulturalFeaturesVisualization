@@ -32,7 +32,7 @@ public class Agent : MonoBehaviour
     [HideInInspector]
     public List<Vector3> movements, movements_perspective;
     public string hofstede_pdi, hofstede_idv, hofstede_mas, hofstede_lto, hofstede_ind;
-    [HideInInspector]
+    //[HideInInspector]
     public List<string>  frames, activate_list, agent_velocities, agent_directions, dist_from_others_videos, o_agent_list, c_agent_list, e_agent_list, 
         a_agent_list, n_agent_list, areas_around, collectivities, disturbances, isolations, socializations, px_to_m_factors, emotions_anger, emotions_fear, 
         emotions_happiness, emotions_sadness;
@@ -166,7 +166,19 @@ public class Agent : MonoBehaviour
     {
         if (frames.Contains(gameController.count_frame.ToString()) && frames.Contains(gameController.count_frame.ToString() + 1))
         {
-            anim.SetFloat("Speed", ((float.Parse(agent_velocities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) + float.Parse(agent_velocities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()) + 1)) + float.Parse(agent_velocities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()) - 1)))/3 )/ 3);
+            float velocity = 0;
+            if (gameController.count_frame <= 1)
+            {
+                //Debug.Log("entrouuuuuuuuuuuuuuuuuuuuu");
+                velocity = (float.Parse(agent_velocities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) + float.Parse(agent_velocities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()) + 1))) / 2;
+                anim.SetFloat("Speed", velocity / 3);
+            }
+            else
+            {
+                velocity = (float.Parse(agent_velocities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) + float.Parse(agent_velocities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()) + 1)) + float.Parse(agent_velocities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()) - 1))) / 3;
+                anim.SetFloat("Speed", velocity / 3);
+            }
+             
         }else if (frames.Contains(gameController.count_frame.ToString()))
         {
             anim.SetFloat("Speed", float.Parse(agent_velocities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) / 3);
@@ -187,35 +199,23 @@ public class Agent : MonoBehaviour
                 Vector3 relativePos2 = movements.ElementAt(frames.IndexOf((gameController.count_frame + 10).ToString())) - movements.ElementAt(frames.IndexOf(gameController.count_frame.ToString()));
                 Quaternion rotationAgent2 = Quaternion.LookRotation(relativePos2, Vector3.up);
                 transform.rotation = Quaternion.Lerp(transform.rotation, rotationAgent2, Time.deltaTime * 2.5f);
-
             }
             else
             {
-                //int countPlusone = gameController.count_frame + 1;
-                //Debug.Log((frames.Contains(gameController.count_frame.ToString()) && frames.Contains((gameController.count_frame + 1).ToString()) && movements.Contains(movements.ElementAt(frames.IndexOf(frames.Count.ToString()) + 1))));
                 string nextFrame = (gameController.count_frame + 1).ToString();
                 if (frames.Contains(gameController.count_frame.ToString()) && (gameController.count_frame + 1) < (frames.Count + 1) && agentActivatedOnTheScene == true)
                 {
-                    //&& movements.Contains(movements.ElementAt(frames.IndexOf(frames.Count.ToString()) + 1)) 
-                    // && frames.Contains((gameController.count_frame + 1).ToString()) && movements.Contains(movements.ElementAt(frames.IndexOf(frames.Count.ToString()) + 1))
-                    //Debug.Log(gameController.count_frame + "-------------" + (gameController.count_frame + 1).ToString() + "-------------" + transform.name + "-----" +movements.ElementAt(frames.IndexOf(frames.Count.ToString()) + 1));
                     Vector3 relativePos2 = movements.ElementAt(frames.IndexOf((gameController.count_frame + 1).ToString())) - movements.ElementAt(frames.IndexOf(gameController.count_frame.ToString()));
-
-                    //Debug.Log(relativePos2);
                     Quaternion rotationAgent2 = Quaternion.LookRotation(relativePos2, Vector3.up);
                     transform.rotation = Quaternion.Lerp(transform.rotation, rotationAgent2, Time.deltaTime * 2.5f);
-                }
-                
+                }               
             }
-
-            AnimationWalkingAndRunning();
-            
+            AnimationWalkingAndRunning();           
         }
         else
         {
             AnimationIdling();
-            //Debug.Log(agentActivatedOnTheScene + "-------------" + transform.name + "-----------" + movements.ElementAt(frames.IndexOf(gameController.count_frame.ToString())));
-            if(agentActivatedOnTheScene == true)
+            if (agentActivatedOnTheScene == true)
             {
                 if (frames.Contains(gameController.count_frame.ToString()))
                 {
@@ -227,7 +227,6 @@ public class Agent : MonoBehaviour
             {
                 Destroy(transform.gameObject);
             }
-            //transform.position = movements.ElementAt(frames.IndexOf(gameController.count_frame.ToString()));
         }
     }
 
@@ -311,8 +310,53 @@ public class Agent : MonoBehaviour
         }
     }
 
+
+
     void Update()
     {
+        //testando
+        if (frames.Contains(gameController.count_frame.ToString()))
+        {
+            if (float.Parse(n_agent_list.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) < 0.5f &&
+            float.Parse(isolations.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) > float.Parse(socializations.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) &&
+            float.Parse(collectivities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) < 0.5f)
+            {
+                Dictionary<string, int> listEmotions = new Dictionary<string, int>();
+                listEmotions.Add("hap", Int32.Parse(emotions_happiness.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))));
+                listEmotions.Add("sad", Int32.Parse(emotions_sadness.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))));
+                listEmotions.Add("anger", Int32.Parse(emotions_anger.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))));
+                listEmotions.Add("fear", Int32.Parse(emotions_fear.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))));
+
+                List<string> listEmotionsNames = new List<string>();
+                int maxValue = listEmotions.Values.Max();
+                var guidForMaxDate = listEmotions.FirstOrDefault(x => x.Value == listEmotions.Values.Max()).Key;
+                if (guidForMaxDate.Equals("hap") )
+                {
+                    //mediana velocidade
+                    int numberCountVelocities = agent_velocities.Count(), numberCountAngularVariantions = agent_directions.Count();
+                    int halfIndexVelocities = agent_velocities.Count() / 2, halfIndexAngularVariations = agent_directions.Count() / 2;
+                    var sortedNumbersVelocities = agent_velocities.OrderBy(n => n);
+                    var sortedNumbersAngularVariations = agent_directions.OrderBy(n => n);
+                    double medianVelocities, medianAngularVariations;
+                    if ((numberCountVelocities % 2) == 0)
+                    {
+                        medianVelocities = ((float.Parse(sortedNumbersVelocities.ElementAt(halfIndexVelocities)) + float.Parse(sortedNumbersVelocities.ElementAt((halfIndexVelocities - 1))))/2);
+                    }
+                    else
+                    {
+                        medianVelocities = float.Parse(sortedNumbersVelocities.ElementAt(halfIndexVelocities));
+                    }
+                    //Debug.Log(("Median is ------------------------------------------------------------------------------: " + median));
+
+                    if (float.Parse(collectivities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) < medianVelocities)
+                    {
+                        Debug.Log("PEGOUUUUUUUUUUUUU " + guidForMaxDate + " Nome - " + transform.name + " Frame - " + gameController.count_frame.ToString());
+                    }
+                }
+
+            }
+        }
+        
         ActivateSocializationIsolation();
         ActivateEmotions();
         ActivateCollectivity();
@@ -502,23 +546,27 @@ public class Agent : MonoBehaviour
 
         if (gameController.isCollectivity == true)
         {
-            var lookPos = maincam.transform.position - collectivitiesAgent.transform.parent.transform.position;
-            lookPos.y = 0;
-            var rotation = Quaternion.LookRotation(lookPos);
-            //var blablabla = Quaternion.
-            if (frames.Contains(frameString))
+            CollectivityIcon(frameString);
+        }
+    }
+
+    private void CollectivityIcon(string frameString)
+    {
+        var lookPos = maincam.transform.position - collectivitiesAgent.transform.parent.transform.position;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        //var blablabla = Quaternion.
+        if (frames.Contains(frameString))
+        {
+            if (float.Parse(collectivities.ElementAt(frames.IndexOf(frameString))) >= 0.5f)
             {
-                if (float.Parse(collectivities.ElementAt(frames.IndexOf(frameString))) >= 0.5f)
-                {
-                    collectivityAgent.SetActive(true);
-                    collectivityAgent.transform.parent.transform.rotation = rotation;
-                }
-                else if (float.Parse(collectivities.ElementAt(frames.IndexOf(frameString))) < 0.5f)
-                {
-                   
-                    notCollectivityAgent.SetActive(true);
-                    notCollectivityAgent.transform.parent.transform.rotation = rotation;
-                }
+                collectivityAgent.SetActive(true);
+                collectivityAgent.transform.parent.transform.rotation = rotation;
+            }
+            else if (float.Parse(collectivities.ElementAt(frames.IndexOf(frameString))) < 0.5f)
+            {
+                notCollectivityAgent.SetActive(true);
+                notCollectivityAgent.transform.parent.transform.rotation = rotation;
             }
         }
     }
@@ -537,42 +585,47 @@ public class Agent : MonoBehaviour
 
         if (gameController.isEmotion == true)
         {
-            if (frames.Contains(frameString))
-            {
-                Dictionary<string, int> listEmotions = new Dictionary<string, int>();
-                listEmotions.Add("hap", Int32.Parse(emotions_happiness.ElementAt(frames.IndexOf(frameString))));
-                listEmotions.Add("sad", Int32.Parse(emotions_sadness.ElementAt(frames.IndexOf(frameString))));
-                listEmotions.Add("anger", Int32.Parse(emotions_anger.ElementAt(frames.IndexOf(frameString))));
-                listEmotions.Add("fear", Int32.Parse(emotions_fear.ElementAt(frames.IndexOf(frameString))));
+            EmotionIcon(frameString);
+        }
+    }
+    
+    private void EmotionIcon(string frameString)
+    {
+        if (frames.Contains(frameString))
+        {
+            Dictionary<string, int> listEmotions = new Dictionary<string, int>();
+            listEmotions.Add("hap", Int32.Parse(emotions_happiness.ElementAt(frames.IndexOf(frameString))));
+            listEmotions.Add("sad", Int32.Parse(emotions_sadness.ElementAt(frames.IndexOf(frameString))));
+            listEmotions.Add("anger", Int32.Parse(emotions_anger.ElementAt(frames.IndexOf(frameString))));
+            listEmotions.Add("fear", Int32.Parse(emotions_fear.ElementAt(frames.IndexOf(frameString))));
 
-                List<string> listEmotionsNames = new List<string>();
-                int maxValue = listEmotions.Values.Max();
-                var guidForMaxDate = listEmotions.FirstOrDefault(x => x.Value == listEmotions.Values.Max()).Key;
-                var emotionsNames = "";
-                for (int i = 0; i <= 3; i++)
+            List<string> listEmotionsNames = new List<string>();
+            int maxValue = listEmotions.Values.Max();
+            var guidForMaxDate = listEmotions.FirstOrDefault(x => x.Value == listEmotions.Values.Max()).Key;
+            var emotionsNames = "";
+            for (int i = 0; i <= 3; i++)
+            {
+                if (listEmotions.Values.ElementAt(i) == maxValue)
                 {
-                    if (listEmotions.Values.ElementAt(i) == maxValue)
-                    {
-                        listEmotionsNames.Add(listEmotions.Keys.ElementAt(i));
-                        emotionsNames = emotionsNames + listEmotions.Keys.ElementAt(i) + "-";
-                    }
+                    listEmotionsNames.Add(listEmotions.Keys.ElementAt(i));
+                    emotionsNames = emotionsNames + listEmotions.Keys.ElementAt(i) + "-";
                 }
-                for (int i = 0; i < emotions.transform.GetChild(0).transform.childCount; i++)
-                {
-                    if (emotionsNames.Equals(emotions.transform.GetChild(0).GetChild(i).name))
-                    {
-                        var lookPos = maincam.transform.position - emotions.transform.position;
-                        lookPos.y = 0;
-                        var rotation = Quaternion.LookRotation(lookPos);
-                        emotions.transform.GetChild(0).GetChild(i).transform.gameObject.SetActive(true);
-                        emotions.transform.rotation = rotation;
-                    }
-                }
-                
-                listEmotions.Clear();
-                emotionsNames = "";
-                listEmotionsNames.Clear();
             }
+            for (int i = 0; i < emotions.transform.GetChild(0).transform.childCount; i++)
+            {
+                if (emotionsNames.Equals(emotions.transform.GetChild(0).GetChild(i).name))
+                {
+                    var lookPos = maincam.transform.position - emotions.transform.position;
+                    lookPos.y = 0;
+                    var rotation = Quaternion.LookRotation(lookPos);
+                    emotions.transform.GetChild(0).GetChild(i).transform.gameObject.SetActive(true);
+                    emotions.transform.rotation = rotation;
+                }
+            }
+
+            listEmotions.Clear();
+            emotionsNames = "";
+            listEmotionsNames.Clear();
         }
     }
 

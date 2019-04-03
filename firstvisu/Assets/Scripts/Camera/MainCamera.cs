@@ -28,23 +28,18 @@ public class MainCamera : MonoBehaviour
                 wasFixedOnTheAgent = true;
                 currentObject = transform.parent;
                 currentAgent = currentObject.GetComponent<Agent>();
-
+                //Debug.Log("Direction ----------------- " + currentAgent.agent_directions.ElementAt(gameController.count_frame));
                 if (currentAgent.frames.Contains((gameController.count_frame + 20).ToString()) && currentAgent.agentActivatedOnTheScene == true && currentAgent.frames.Contains((gameController.count_frame + 1).ToString()))
                 {
-                    Vector3 relativePos = currentAgent.movements.ElementAt(currentAgent.frames.IndexOf((gameController.count_frame + 1).ToString())) - currentAgent.movements.ElementAt(currentAgent.frames.IndexOf(gameController.count_frame.ToString()));
-                    //Quaternion rotationAgent = Quaternion.LookRotation(relativePos, Vector3.up);
-                    //transform.rotation = Quaternion.Lerp(transform.rotation, rotationAgent, Mathf.SmoothStep(0.0f, 1.5f, Time.deltaTime));
-
-                    Vector3 relativePos3 = currentAgent.movements.ElementAt(currentAgent.frames.IndexOf((gameController.count_frame).ToString()));
                     Vector3 relativePos2 = currentAgent.movements.ElementAt(currentAgent.frames.IndexOf((gameController.count_frame).ToString()));//Vector3 relativePos2 = movements.ElementAt(frames.IndexOf((gameController.count_frame + 10).ToString())) - movements.ElementAt(frames.IndexOf(gameController.count_frame.ToString()));
 
-                    for (int i = 1; i <= 4; i++)
+                    for (int i = 1; i <= 5; i++)
                     {
                         relativePos2 = relativePos2 + currentAgent.movements.ElementAt(currentAgent.frames.IndexOf((gameController.count_frame + i).ToString()));
                     }
                     
                     //Vector3 relativePos = currentAgent.movements.ElementAt(currentAgent.frames.IndexOf((gameController.count_frame + 1).ToString())) - currentAgent.movements.ElementAt(currentAgent.frames.IndexOf(gameController.count_frame.ToString()));
-                    Quaternion rotationAgent = Quaternion.LookRotation(relativePos2 - currentAgent.movements.ElementAt(currentAgent.frames.IndexOf((gameController.count_frame).ToString())), Vector3.up);
+                    Quaternion rotationAgent = Quaternion.LookRotation((relativePos2/5) - currentAgent.movements.ElementAt(currentAgent.frames.IndexOf((gameController.count_frame).ToString())), Vector3.up);
                     transform.rotation = Quaternion.Lerp(transform.rotation, rotationAgent, Mathf.SmoothStep(0.0f, 1.5f, Time.deltaTime));
 
                 }

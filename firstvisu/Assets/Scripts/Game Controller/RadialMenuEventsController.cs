@@ -72,7 +72,7 @@ public class RadialMenuEventsController : MonoBehaviour
                     //var emotionsNames = "";
                     for (int j = 0; j <= 3; j++)
                     {
-                        Debug.Log("foraaaaaaaaaaaaaaaa");
+                        //Debug.Log("foraaaaaaaaaaaaaaaa");
                         if (listEmotions.Values.ElementAt(j) == maxValue)
                         {
                             emotionsList.ElementAt(j).SetActive(true);
