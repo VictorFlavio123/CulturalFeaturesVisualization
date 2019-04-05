@@ -32,7 +32,7 @@ public class Agent : MonoBehaviour
     [HideInInspector]
     public List<Vector3> movements, movements_perspective;
     public string hofstede_pdi, hofstede_idv, hofstede_mas, hofstede_lto, hofstede_ind;
-    //[HideInInspector]
+    [HideInInspector]
     public List<string>  frames, activate_list, agent_velocities, agent_directions, dist_from_others_videos, o_agent_list, c_agent_list, e_agent_list, 
         a_agent_list, n_agent_list, areas_around, collectivities, disturbances, isolations, socializations, px_to_m_factors, emotions_anger, emotions_fear, 
         emotions_happiness, emotions_sadness;
@@ -46,6 +46,7 @@ public class Agent : MonoBehaviour
     private SkinnedMeshRenderer m_Renderer;
     public AgentSelectedMenu menuSelected;
     private string textClick;
+    //public GameObject condition1, condition2;
 
     private Color color;
 
@@ -350,6 +351,7 @@ public class Agent : MonoBehaviour
 
                     if (float.Parse(collectivities.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) < medianVelocities)
                     {
+                        
                         Debug.Log("PEGOUUUUUUUUUUUUU " + guidForMaxDate + " Nome - " + transform.name + " Frame - " + gameController.count_frame.ToString());
                     }
                 }
