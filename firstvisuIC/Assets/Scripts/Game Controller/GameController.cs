@@ -99,16 +99,19 @@ public class GameController : MonoBehaviour
         //Otherwise change the Text to "Load Previous Scene"
         else
         {
-            GameObject sceneTransitionObject = GameObject.Find("SceneTransition");
-            SceneTransitionController sceneTransition = sceneTransitionObject.GetComponent<SceneTransitionController>();
+            //turned off
+            //GameObject sceneTransitionObject = GameObject.Find("SceneTransition");
+            //SceneTransitionController sceneTransition = sceneTransitionObject.GetComponent<SceneTransitionController>();
             // m_MyButton.GetComponentInChildren<Text>().text = "Load Previous Scene";
             play_button.onClick.AddListener(PlaySimulation);
-            backButton.onClick.AddListener(BackToFirstScene);
+            //turned off
+            //backButton.onClick.AddListener(BackToFirstScene);
             resetPosCam.onClick.AddListener(ResetPositionCamera);
-            Destroy(sceneTransition.gameObject);
-            //use video selected in first scene
-            textVideoList = "NewDataSet/" + sceneTransition.videoName;
-            sceneTransition.videoName = "";
+            //Destroy(sceneTransition.gameObject);
+            //use video selected in first scene (turned off)
+            //textVideoList = "NewDataSet/" + sceneTransition.videoName;
+            //sceneTransition.videoName = "";
+            textVideoList = "NewDataSet/" + "DATA_AE-01";
             TextAsset videoTextAsset2 = Resources.Load<TextAsset>(textVideoList);
 
             //Debug.Log(videoTextAsset2.ToString());
@@ -231,20 +234,26 @@ public class GameController : MonoBehaviour
                 }
                 agents.Add(agent);
             }
-
-            GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-            Vector3 maxmin_scale = new Vector3((max_x / 10)+10, 0, (max_y / 10)+10);
-
-            plane.transform.localScale = maxmin_scale;
-            mini_camera.transform.position = new Vector3(max_x / 2, mini_camera.transform.position.y, max_y / 2);
-            plane.transform.position = new Vector3(max_x / 2, plane.transform.position.y, max_y / 2);
-            var teste = Resources.Load("Google_Earth_Snapshot");
-            Material material = Material.Instantiate(Resources.Load<Material>("Material"));
-            plane.transform.GetComponent<Renderer>().material = material;
+            //turned off
+            //AddPlane();
         }
 
         
         
+    }
+
+    public void AddPlane()
+    {
+
+        GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        Vector3 maxmin_scale = new Vector3((max_x / 10) + 10, 0, (max_y / 10) + 10);
+
+        plane.transform.localScale = maxmin_scale;
+        mini_camera.transform.position = new Vector3(max_x / 2, mini_camera.transform.position.y, max_y / 2);
+        plane.transform.position = new Vector3(max_x / 2, plane.transform.position.y, max_y / 2);
+        var teste = Resources.Load("Google_Earth_Snapshot");
+        Material material = Material.Instantiate(Resources.Load<Material>("Material"));
+        plane.transform.GetComponent<Renderer>().material = material;
     }
 
     void SceneTransition()
