@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
     
     public GameObject agent_prefab, optionsMenu;
     public Camera mini_camera;
-    public MainCamera main_camera;
+    //public MainCamera main_camera;
     public Button m_LoadSceneButton, play_button;
     private Button btn1;
     private bool wasClicked = false;
@@ -106,7 +106,7 @@ public class GameController : MonoBehaviour
             play_button.onClick.AddListener(PlaySimulation);
             //turned off
             //backButton.onClick.AddListener(BackToFirstScene);
-            resetPosCam.onClick.AddListener(ResetPositionCamera);
+            //resetPosCam.onClick.AddListener(ResetPositionCamera);
             //Destroy(sceneTransition.gameObject);
             //use video selected in first scene (turned off)
             //textVideoList = "NewDataSet/" + sceneTransition.videoName;
@@ -273,12 +273,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //turned off
+    /*
     public void ResetPositionCamera()
     {
         main_camera.transform.parent = null;
         main_camera.transform.localPosition = camInitialPosition;
         main_camera.transform.rotation = new Quaternion(0, 0, 0, 0);
-    }
+    }*/
 
     void DropdownValueChanged(Dropdown change)
     {
@@ -311,7 +313,7 @@ public class GameController : MonoBehaviour
 
         else
         {
-            camInitialPosition = main_camera.transform.localPosition;
+            //camInitialPosition = main_camera.transform.localPosition;
             slider.minValue = ((1 * 100) / max) / 100;
             slider.maxValue = 1;
             //m_MyButton.GetComponentInChildren<Text>().text = "Load Previous Scene";
@@ -379,10 +381,11 @@ public class GameController : MonoBehaviour
                                     newAgent = GameObject.Find(agentname);
                                     agents_names.Remove(newAgent.name);
                                     agents_in_scene_list.Remove(newAgent);
-                                    if (main_camera.wasFixedOnTheAgent == true && main_camera.currentAgent.name == agentname)
+                                    //turned off
+                                    /*if (main_camera.wasFixedOnTheAgent == true && main_camera.currentAgent.name == agentname)
                                     {
                                         main_camera.transform.parent = null;
-                                    }
+                                    }*/
                                     current_agent = GameObject.Find(newAgent.name).GetComponent<Agent>();
                                     current_agent.agentActivatedOnTheScene = false;
                                     current_agent = null;

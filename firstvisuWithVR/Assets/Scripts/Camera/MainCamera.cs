@@ -10,7 +10,8 @@ public class MainCamera : MonoBehaviour
     public bool wasFixedOnTheAgent = false;
     public GameController gameController;
     private Vector3 screenMousePosition;
-    
+    public float speed = 5.0f;
+
     // Use this for initialization
     void Start ()
     {
@@ -89,7 +90,26 @@ public class MainCamera : MonoBehaviour
             wasFixedOnTheAgent = false;
             currentAgent = null;
             currentObject = null;
-            gameController.ResetPositionCamera();
+            //gameController.ResetPositionCamera();
+
+
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                transform.position -= new Vector3(0, speed * Time.deltaTime, 0);
+            }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                transform.position += new Vector3(0, speed * Time.deltaTime, 0);
+            }
+
         }
 	}
 }
