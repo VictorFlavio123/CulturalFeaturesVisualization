@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour
             //use video selected in first scene (turned off)
             //textVideoList = "NewDataSet/" + sceneTransition.videoName;
             //sceneTransition.videoName = "";
-            textVideoList = "NewDataSet/" + "DATA_AE-01";
+            textVideoList = "NewDataSet/" + "DATA_AE-02";
             TextAsset videoTextAsset2 = Resources.Load<TextAsset>(textVideoList);
 
             //Debug.Log(videoTextAsset2.ToString());
@@ -236,10 +236,17 @@ public class GameController : MonoBehaviour
             }
             //turned off
             //AddPlane();
+            MiniCameraPosition();
         }
 
         
         
+    }
+
+    public void MiniCameraPosition()
+    {
+        Vector3 maxmin_scale = new Vector3((max_x / 10) + 10, 0, (max_y / 10) + 10);
+        mini_camera.transform.position = new Vector3(max_x / 2, mini_camera.transform.position.y, max_y / 2);
     }
 
     public void AddPlane()

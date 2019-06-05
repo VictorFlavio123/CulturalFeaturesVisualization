@@ -755,7 +755,7 @@ public class Agent : MonoBehaviour
 
 
             }
-            if (Input.GetMouseButtonDown(1) && isSelected == false)
+            /*if (Input.GetMouseButtonDown(1) && isSelected == false)
             {
                 for (int i = 0; i <= 3; i++)
                 {
@@ -780,7 +780,6 @@ public class Agent : MonoBehaviour
             }
             else if (Input.GetMouseButtonDown(1) && isSelected == true && hasMenu == true)
             {
-
                 menuSelected.transform.GetChild(0).GetComponent<Text>().text = "";
                 menuSelected.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
                 menuSelected.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
@@ -801,7 +800,7 @@ public class Agent : MonoBehaviour
                 m_Renderer.materials[1].color = color;
                 gameController.radialEventsController.transform.gameObject.SetActive(false);
                 gameController.radialEventsController.isActivated = false;
-            }
+            }*/
         }
     }
     
