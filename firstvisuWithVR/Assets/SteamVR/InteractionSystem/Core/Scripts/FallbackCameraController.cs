@@ -13,13 +13,29 @@ namespace Valve.VR.InteractionSystem
 	[RequireComponent( typeof( Camera ) )]
 	public class FallbackCameraController : MonoBehaviour
 	{
-		public float speed = 4.0f;
+        public float speed = 4.0f;
 		public float shiftSpeed = 16.0f;
 		public bool showInstructions = true;
 
 		private Vector3 startEulerAngles;
 		private Vector3 startMousePosition;
 		private float realTime;
+
+        
+        //my
+        public Transform vrCamera;
+        public float toggleAngle = 30.0f;
+        public float speed2 = 3.0f;
+        public bool moveForward;
+
+        private CharacterController cc;
+        
+        //my
+        void Start()
+        {
+            cc = GetComponent<CharacterController>();
+            vrCamera = GetComponent<Camera>().transform;
+        }
 
 		//-------------------------------------------------
 		void OnEnable()
@@ -67,21 +83,42 @@ namespace Valve.VR.InteractionSystem
 
 			Vector3 mousePosition = Input.mousePosition;
 
-			if ( Input.GetMouseButtonDown( 1 ) /* right mouse */)
+			if ( Input.GetMouseButtonDown( 1 ) )
 			{
 				startMousePosition = mousePosition;
 				startEulerAngles = transform.localEulerAngles;
 			}
 
-			if ( Input.GetMouseButton( 1 ) /* right mouse */)
+			if ( Input.GetMouseButton( 1 ) )
 			{
 				Vector3 offset = mousePosition - startMousePosition;
 				transform.localEulerAngles = startEulerAngles + new Vector3( -offset.y * 360.0f / Screen.height, offset.x * 360.0f / Screen.width, 0.0f );
 			}
-		}
+
+            //my
+            if (transform.eulerAngles.x <= 30.0f)
+            {
+                Debug.Log(transform.eulerAngles.x + "---------" + vrCamera.eulerAngles.x);
+            }
+
+            if (vrCamera.eulerAngles.x < toggleAngle)
+            {
+                moveForward = true;
+            }
+            else
+            {
+                moveForward = false;
+            }
+
+            if (moveForward)
+            {
+                Vector3 forward2 = vrCamera.TransformDirection(Vector3.forward);
+
+                cc.SimpleMove(forward2 * speed2);
+            }
+        }
 
 
-		//-------------------------------------------------
 		void OnGUI()
 		{
 			if ( showInstructions )
@@ -92,5 +129,5 @@ namespace Valve.VR.InteractionSystem
 					"Left mouse click for standard interactions.\n" );
 			}
 		}
-	}
+    }
 }
