@@ -54,7 +54,7 @@ public class Agent : MonoBehaviour
     {
         pathList = new List<Vector3>();
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        m_Renderer = transform.GetChild(4).GetChild(2).GetComponent<SkinnedMeshRenderer>();
+        //m_Renderer = transform.GetChild(4).GetChild(2).GetComponent<SkinnedMeshRenderer>();
         anim = GetComponent<Animator>();
         rend = GetComponent<Renderer>();
         //optionMenu = gameController.FindGameObjectWithTag("OptionMenu");
@@ -65,7 +65,8 @@ public class Agent : MonoBehaviour
         string agentname;
         foreach (Agent agent_new in gameController.agents)
         {
-            agentname = "Agent" + agent_new.id;
+            agentname = "Man" + agent_new.id;
+            //agentname = "Agent" + agent_new.id;
             if (agentname.Equals(transform.name))
             {
                 movements = agent_new.movements;
@@ -75,6 +76,7 @@ public class Agent : MonoBehaviour
                 agent_velocities = agent_new.agent_velocities;
                 agent_directions = agent_new.agent_directions;
                 dist_from_others_videos = agent_new.dist_from_others_videos;
+                /*
                 o_agent_list = agent_new.o_agent_list;
                 c_agent_list = agent_new.c_agent_list;
                 e_agent_list = agent_new.e_agent_list;
@@ -94,23 +96,23 @@ public class Agent : MonoBehaviour
                 hofstede_idv = agent_new.hofstede_idv;
                 hofstede_mas = agent_new.hofstede_mas;
                 hofstede_lto = agent_new.hofstede_lto;
-                hofstede_ind = agent_new.hofstede_ind;
+                hofstede_ind = agent_new.hofstede_ind;*/
                 id = agent_new.id;
             }
         }
         //gameObject.agents
-        emotions = GameObject.Find("/" + transform.name + "/Emotions");
-        collectivitiesAgent = GameObject.Find("/" + transform.name + "/Collectivism");
+        //emotions = GameObject.Find("/" + transform.name + "/Emotions");
+        //collectivitiesAgent = GameObject.Find("/" + transform.name + "/Collectivism");
         //Debug.Log(emotions.name);
-        isolationsAgent = GameObject.Find("/" + transform.name + "/SocializationVsIsolation");
-        isolationAgent = isolationsAgent.transform.GetChild(1).gameObject;
-        socializationAgent = isolationsAgent.transform.GetChild(2).gameObject;
-        collectivityAgent = collectivitiesAgent.transform.GetChild(1).gameObject;
-        notCollectivityAgent = collectivitiesAgent.transform.GetChild(2).gameObject;
-        hapAgent = emotions.transform.GetChild(0).transform.GetChild(3).gameObject;
-        sadAgent = emotions.transform.GetChild(0).transform.GetChild(0).gameObject;
-        fearAgent = emotions.transform.GetChild(0).transform.GetChild(1).gameObject;
-        angerAgent = emotions.transform.GetChild(0).transform.GetChild(2).gameObject;
+        //isolationsAgent = GameObject.Find("/" + transform.name + "/SocializationVsIsolation");
+        //isolationAgent = isolationsAgent.transform.GetChild(1).gameObject;
+        //socializationAgent = isolationsAgent.transform.GetChild(2).gameObject;
+        //collectivityAgent = collectivitiesAgent.transform.GetChild(1).gameObject;
+        //notCollectivityAgent = collectivitiesAgent.transform.GetChild(2).gameObject;
+        //hapAgent = emotions.transform.GetChild(0).transform.GetChild(3).gameObject;
+        //sadAgent = emotions.transform.GetChild(0).transform.GetChild(0).gameObject;
+        //fearAgent = emotions.transform.GetChild(0).transform.GetChild(1).gameObject;
+        //angerAgent = emotions.transform.GetChild(0).transform.GetChild(2).gameObject;
         
     }
     
@@ -362,7 +364,7 @@ public class Agent : MonoBehaviour
     void Update()
     {
         //testando
-        if (frames.Contains(gameController.count_frame.ToString()))
+        /*if (frames.Contains(gameController.count_frame.ToString()))
         {
 
             if (float.Parse(n_agent_list.ElementAt(frames.IndexOf(gameController.count_frame.ToString()))) < 0.5f &&
@@ -405,18 +407,18 @@ public class Agent : MonoBehaviour
                 }
 
             }
-        }
+        }*/
         
-        ActivateSocializationIsolation();
-        ActivateEmotions();
-        ActivateCollectivity();
+        //ActivateSocializationIsolation();
+        //ActivateEmotions();
+        //ActivateCollectivity();
         ActivateVelocity();
         PlayAndPause();
-        ActivateFeaturesRadialMenu();
+        //ActivateFeaturesRadialMenu();
         //UnselectedMenu();
 //        Debug.Log(hofstede_lto + "-----------------------------------");
 
-        if (isRendering == true)
+        /*if (isRendering == true)
         {
             AgentEmotions();
             AgentSocialization();
@@ -466,7 +468,7 @@ public class Agent : MonoBehaviour
                     }
                 }
             }
-        }
+        }*/
     }
 
     public void ActivateSocializationIsolation()
@@ -739,7 +741,7 @@ public class Agent : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (Input.GetMouseButtonDown(0))
+            /*if (Input.GetMouseButtonDown(0))
             {
                 maincam.GetComponent<Camera>().orthographic = false;
                 maincam.transform.parent = transform;
@@ -755,7 +757,7 @@ public class Agent : MonoBehaviour
 
 
             }
-            /*if (Input.GetMouseButtonDown(1) && isSelected == false)
+            if (Input.GetMouseButtonDown(1) && isSelected == false)
             {
                 for (int i = 0; i <= 3; i++)
                 {

@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour
             //use video selected in first scene (turned off)
             //textVideoList = "NewDataSet/" + sceneTransition.videoName;
             //sceneTransition.videoName = "";
-            textVideoList = "NewDataSet/" + "DATA_AE-02";
+            textVideoList = "NewDataSet/" + "GE-34";
             TextAsset videoTextAsset2 = Resources.Load<TextAsset>(textVideoList);
 
             //Debug.Log(videoTextAsset2.ToString());
@@ -359,7 +359,8 @@ public class GameController : MonoBehaviour
                             if (agents_id_videos.ElementAt(j).Equals(agent_new.id))
                             {
 
-                                string agentname = "Agent" + agents_id_videos.ElementAt(j);
+                                string agentname = "Man" + agents_id_videos.ElementAt(j);
+                                //string agentname = "Agent" + agents_id_videos.ElementAt(j);
                                 Agent newAg;
                                 if (!agents_in_scene.Contains(agents_id_videos.ElementAt(j)) && activated_agents_videos.ElementAt(j).Equals("yes") && !agents_names.Contains(agentname))
                                 {

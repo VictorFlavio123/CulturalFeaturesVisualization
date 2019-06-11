@@ -8,6 +8,7 @@ TagManager:
   - RadialMenu
   - Canvas
   - OptionMenu
+  - Agent
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Emotion
   - NameID
   - ImageBackgroundOption
-  - 
+  - VRCanvas
   - 
   - 
   - 

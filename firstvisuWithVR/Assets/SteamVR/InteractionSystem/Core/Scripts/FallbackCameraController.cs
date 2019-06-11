@@ -24,7 +24,7 @@ namespace Valve.VR.InteractionSystem
         
         //my
         public Transform vrCamera;
-        public float toggleAngle = 30.0f;
+        public float toggleAngle = 45.0f;
         public float speed2 = 3.0f;
         public bool moveForward;
 
@@ -47,7 +47,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		void Update()
 		{
-			float forward = 0.0f;
+			/*float forward = 0.0f;
 			if ( Input.GetKey( KeyCode.W ) || Input.GetKey( KeyCode.UpArrow ) )
 			{
 				forward += 1.0f;
@@ -79,7 +79,7 @@ namespace Valve.VR.InteractionSystem
 
 			Vector3 delta = new Vector3( right, 0.0f, forward ) * currentSpeed * deltaRealTime;
 
-			transform.position += transform.TransformDirection( delta );
+			transform.position += transform.TransformDirection( delta ); */
 
 			Vector3 mousePosition = Input.mousePosition;
 
@@ -96,13 +96,14 @@ namespace Valve.VR.InteractionSystem
 			}
 
             //my
-            if (transform.eulerAngles.x <= 30.0f)
+            /*if (transform.eulerAngles.x <= 60.0f)
             {
                 Debug.Log(transform.eulerAngles.x + "---------" + vrCamera.eulerAngles.x);
-            }
+            }*/
 
-            if (vrCamera.eulerAngles.x < toggleAngle)
+            if (vrCamera.eulerAngles.x <= toggleAngle)
             {
+                Debug.Log(transform.eulerAngles.x + "---------" + vrCamera.eulerAngles.x);
                 moveForward = true;
             }
             else
@@ -112,7 +113,28 @@ namespace Valve.VR.InteractionSystem
 
             if (moveForward)
             {
-                Vector3 forward2 = vrCamera.TransformDirection(Vector3.forward);
+                float forward = 0.0f;
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+                {
+                    forward += 1.0f;
+                }
+                if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+                {
+                    forward -= 1.0f;
+                }
+
+                float right = 0.0f;
+                if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+                {
+                    right += 1.0f;
+                }
+                if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+                {
+                    right -= 1.0f;
+                }
+
+                Vector3 delta = new Vector3(right, 0.0f, forward);
+                Vector3 forward2 = vrCamera.TransformDirection(delta);
 
                 cc.SimpleMove(forward2 * speed2);
             }
